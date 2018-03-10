@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Rock Paper Scissors </title>
+</head>
+<body>
+  <script>
+    var options = ["rock", "paper", "scissors"];
+
+    function playRound (playerSelection, computerSelection){
+      console.log(`player picked ${playerSelection}`)
+      console.log(`computer picked ${computerSelection}`)
+      if (playerSelection === computerSelection) {
+        return ["Tie, nobody wins...", 0];
+      } else if (playerSelection === "rock"){
+        return computerSelection === "scissors" ? ["You win! Rock beats scissors", 1] : ["You lose! Paper beats rock", 2];
+      } else if (playerSelection === "scissors"){
+        return computerSelection === "paper" ? ["You win! Scissors beats paper", 1] : ["You lose! Rock beats scissors", 2];
+      } else {
+        return computerSelection === "rock" ? ["You win! Paper beats rock",1] : ["You lose! Scissors beats paper", 2];
+      }
+    }
+
+    function chooseOption (options){
+      do {
+      var playerSelection = prompt("What is your choice?");
+      }
+      while (options.indexOf(playerSelection.toLowerCase()) < 0);
+      return playerSelection.toLowerCase();
+    }
+
+    function chooseComputer (options){
+      return options[Math.floor(Math.random() * options.length)];
+    }
+
+    function playGame(numberRounds) {
+      var playerWins = 0;
+      var computerWins = 0;
+      var roundsPlayed = 0;
+      while (roundsPlayed < numberRounds) {
+        var results = playRound(chooseOption(options), chooseComputer(options));
+        console.log(results[0])
+        if (results[1] === 1) {
+          playerWins++;
+          roundsPlayed++;
+        } else if (results[1] === 2) {
+          computerWins++;
+          roundsPlayed++;
+        }
+      }  console.log(`The final score: Human ${playerWins} Computer ${computerWins}`);
+    }
+
+    playGame(5);
+
+  </script>
+</body>
+</html>
